@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía Técnica de Vacunación - NTS N° 196</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .slide-up { animation: slideUp 0.4s ease-out; }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .bounce { animation: bounce 2s infinite; }
+        @keyframes bounce { 0%, 20%, 50%, 80%, 100% {transform: translateY(0);} 40% {transform: translateY(-20px);} 60% {transform: translateY(-10px);} }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans text-gray-800 pb-12">
+
+    <!-- Header Fijo -->
+    <header class="bg-slate-900 text-white p-4 shadow-lg sticky top-0 z-20">
+        <div class="max-w-5xl mx-auto flex items-center gap-4">
+            <div class="bg-slate-800 p-2 rounded-lg">
+                <i class="fa-solid fa-shield-virus text-emerald-400 text-2xl"></i>
+            </div>
+            <div>
+                <h1 class="text-xl font-bold leading-none">Guía Técnica de Vacunación</h1>
+                <p class="text-xs text-slate-400 mt-1">Pediatría & Comorbilidades - NTS N° 196</p>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-5xl mx-auto p-4 space-y-6">
+        
+        <!-- Navegación Principal -->
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4" id="main-nav">
+            <!-- Renderizado dinámico -->
+        </div>
+
+        <!-- Contenedor Principal -->
+        <div id="content-area" class="fade-in">
+            <!-- Contenido dinámico -->
+        </div>
+
+    </main>
+
+    <footer class="max-w-5xl mx-auto p-4 text-center text-slate-400 text-xs mt-8 border-t border-slate-200">
+        <p>Fuente: NTS N° 196-MINSA/DGIESP-2022.</p>
+    </footer>
+
+    <script>
+        // --- DATOS DE LA APLICACIÓN ---
+
+        const vaccineData = {
+            influenza: {
+                id: 'influenza',
+                title: "Influenza (Estacional)",
+                type: "Vacuna Inactivada",
+                color: "bg-red-600",
+                lightColor: "bg-red-50",
+                textColor: "text-red-800",
+                borderColor: "border-red-200",
+                description: "Vacuna que confiere inmunidad contra los serotipos prevalentes de la influenza (H1N1, H3N2 e Influenza B). Se prioriza antes de temporada de heladas.",
+                technical: {
+                    dosage: "Pediátrica (6m-35m): 0.25 ml | Adulto (3a+): 0.5 ml",
+                    route: "IM: Vasto externo (<2a) / Deltoides (>2a)",
+                    storage: "+2°C a +8°C. No congelar."
+                },
+                groups: [
+                    {
+                        label: "Niños < 3 años",
+                        icon: "fa-baby",
+                        schedule: [
+                            { age: "6 meses", dose: "1ra Dosis (Pediátrica 0.25ml)" },
+                            { age: "7 meses", dose: "2da Dosis (Al mes de la 1era)" },
+                            { age: "1 año", dose: "1 Dosis (0.25ml) - Anual" },
+                            { age: "2 años", dose: "1 Dosis (0.25ml) - Anual" }
+                        ],
+                        notes: "<strong>Primovacunación:</strong> Si es < 1 año, DEBE recibir 2 dosis. De 1 a 2 años es dosis única anual."
+                    },
+                    {
+                        label: "Niños con VIH",
+                        icon: "fa-ribbon",
+                        schedule: [
+                            { age: "6 meses", dose: "1ra Dosis (0.25ml)" },
+                            { age: "7 meses", dose: "2da Dosis (0.25ml)" },
+                            { age: "Mayor de 1 año", dose: "1 Dosis Anual (Según edad)" }
+                        ],
+                        notes: "<strong>Dosis:</strong> Se mantiene 0.25ml hasta los 2 años 11 meses 29 días. A partir de los 3 años reciben 0.5ml."
+                    },
+                    {
+                        label: "Adultos/Gestantes",
+                        icon: "fa-person-pregnant",
+                        schedule: [
+                            { age: "3 años a más", dose: "1 Dosis Anual (0.5ml)" },
+                            { age: "Gestantes", dose: "1 Dosis (Cualquier trimestre)" },
+                            { age: "Puérperas", dose: "1 Dosis (Si no recibió en embarazo)" }
+                        ],
+                        notes: "Gestantes protegidas en cualquier trimestre. Personal de salud recibe dosis anual."
+                    },
+                    {
+                        label: "Grupos de Riesgo",
+                        icon: "fa-heart-pulse",
+                        // Lista completa restaurada
+                        details: [
+                            "Enfermedades Cardiovasculares (Hipertensión, etc.)",
+                            "Enfermedades Respiratorias Crónicas (Asma, EPOC)",
+                            "Diabetes Mellitus",
+                            "Obesidad Mórbida",
+                            "Enfermedad Renal",
+                            "Inmunodeficiencia (VIH, Cáncer en fase controlada)",
+                            "Comunidades Nativas",
+                            "Estudiantes de ciencias de la salud",
+                            "Fuerzas Armadas y Policia Nacional",
+                            "Cruz Roja, Bomberos, Defensa Civil",
+                            "Población privada de libertad (Cárceles)",
+                            "Centros de rehabilitación y casas de reposo"
+                        ],
+                        schedule: [
+                            { age: "Población con comorbilidad", dose: "1 Dosis Anual (0.5ml)" }
+                        ],
+                        notes: "Requiere orden médica o constancia de diagnóstico para comorbilidades."
+                    },
+                    {
+                        label: "Adulto Mayor (60+)",
+                        icon: "fa-person-cane",
+                        schedule: [
+                            { age: "60 años a más", dose: "1 Dosis Anual (0.5ml)" }
+                        ],
+                        notes: "Priorizar vacunación antes de temporada de heladas y friaje (abril-septiembre)."
+                    }
+                ],
+                esavi: { local: "Dolor, induración.", systemic: "Alza térmica, malestar (2-3 días)." },
+                contraindications: ["Anafilaxia previa.", "Alergia severa al huevo.", "Lactantes < 6 meses."]
+            },
+            neumococo: {
+                id: 'neumococo',
+                title: "Neumococo (Conjugada)",
+                type: "Vacuna Conjugada",
+                color: "bg-blue-600",
+                lightColor: "bg-blue-50",
+                textColor: "text-blue-800",
+                borderColor: "border-blue-200",
+                description: "Previene neumonías, meningitis, sepsis y otitis media. Esquemas diferenciados para población sana y VIH.",
+                technical: {
+                    dosage: "0.5 ml (Todas las edades)",
+                    route: "IM: Vasto externo (<2a) / Deltoides (>2a)",
+                    storage: "+2°C a +8°C. Uso inmediato."
+                },
+                groups: [
+                    {
+                        label: "Menores de 1 año",
+                        icon: "fa-baby",
+                        schedule: [
+                            { age: "2 meses", dose: "1ra Dosis" },
+                            { age: "4 meses", dose: "2da Dosis" },
+                            { age: "12 meses", dose: "3ra Dosis (Refuerzo)" }
+                        ],
+                        notes: "Esquema regular: 2 primarias + 1 refuerzo. NO reiniciar si se interrumpe."
+                    },
+                    {
+                        label: "Niños con VIH",
+                        icon: "fa-ribbon",
+                        schedule: [
+                            { age: "2 meses", dose: "1ra Dosis" },
+                            { age: "4 meses", dose: "2da Dosis" },
+                            { age: "6 meses", dose: "3ra Dosis (Dosis Adicional)" },
+                            { age: "12 meses", dose: "4ta Dosis (Refuerzo)" }
+                        ],
+                        notes: "<strong>¡Clave Pediatría!</strong> El esquema VIH incluye una dosis extra a los 6 meses. Total: 3 primarias + 1 refuerzo."
+                    },
+                    {
+                        label: "Niños (Rescate)",
+                        icon: "fa-child-reaching",
+                        schedule: [
+                            { age: "12 a 23 meses", dose: "2 dosis (Intervalo 1 mes)" },
+                            { age: "2 a 4 años", dose: "1 dosis única" }
+                        ],
+                        notes: "Para niños sanos que no recibieron sus dosis oportunamente en el primer año."
+                    },
+                    {
+                        label: "Riesgo (5-59a)",
+                        icon: "fa-triangle-exclamation",
+                        // Lista completa restaurada
+                        details: [
+                            "Nefropatías (Enfermedad renal crónica)",
+                            "Cardiopatías",
+                            "Diabetes Mellitus",
+                            "Infección por VIH (Si no se vacunó de niño)",
+                            "Síndrome de Down",
+                            "Neoplasias",
+                            "Esplenectomizados (Sin bazo) - Crítico",
+                            "Inmunosupresión (Transplantes)",
+                            "Hemoglobinopatías",
+                            "Personal de Salud"
+                        ],
+                        schedule: [
+                            { age: "5 a 59 años (Riesgo)", dose: "1 Dosis Única" }
+                        ],
+                        notes: "Pacientes esplenectomizados deben vacunarse 2 semanas antes de la cirugía si es programada."
+                    },
+                    {
+                        label: "Adulto Mayor (60+)",
+                        icon: "fa-person-cane",
+                        schedule: [
+                            { age: "60 años a más", dose: "1 Dosis Única" }
+                        ],
+                        notes: "No requiere revacunación rutinaria según NTS actual."
+                    }
+                ],
+                esavi: { local: "Dolor, eritema.", systemic: "Fiebre, irritabilidad, pérdida de apetito." },
+                contraindications: ["Anafilaxia previa.", "Enfermedad febril aguda severa (posponer)."]
+            }
+        };
+
+        const quizQuestions = [
+            {
+                category: "Neumococo - VIH",
+                question: "¿Cuál es el esquema de vacunación contra Neumococo para un niño con VIH?",
+                options: ["2, 4 y 12 meses", "2, 4, 6 y 12 meses", "2, 4 y 6 meses", "Dosis única"],
+                correct: 1,
+                explanation: "Los niños portadores de VIH reciben un esquema de 4 dosis: a los 2, 4, 6 meses y un refuerzo a los 12 meses."
+            },
+            {
+                category: "Influenza",
+                question: "¿Cuál es la dosis pediátrica de Influenza para un niño de 1 año?",
+                options: ["0.5 ml", "0.25 ml", "1.0 ml", "0.1 ml"],
+                correct: 1,
+                explanation: "La dosis pediátrica es de 0.25 ml para niños desde los 6 meses hasta los 2 años, 11 meses y 29 días."
+            },
+            {
+                category: "Riesgo Neumococo",
+                question: "¿Qué condición de riesgo en adultos de 5-59 años requiere prioritariamente vacuna antineumocócica?",
+                options: ["Gastritis", "Esplenectomía (falta de bazo)", "Migraña", "Fractura ósea"],
+                correct: 1,
+                explanation: "Los pacientes esplenectomizados tienen alto riesgo de sepsis por bacterias encapsuladas como el neumococo."
+            },
+            {
+                category: "Influenza - VIH",
+                question: "Un lactante de 6 meses con VIH, ¿cuántas dosis de influenza recibe en su primer año de vida?",
+                options: ["1 dosis", "2 dosis (6m y 7m)", "3 dosis", "Ninguna"],
+                correct: 1,
+                explanation: "Recibe el mismo esquema primario que el niño sano: 1ra dosis a los 6 meses y 2da dosis a los 7 meses."
+            },
+            {
+                category: "General",
+                question: "¿Temperatura de conservación normativa en nivel local?",
+                options: ["0°C a +8°C", "+2°C a +8°C", "-20°C a 0°C", "Ambiente"],
+                correct: 1,
+                explanation: "La cadena de frío normativa exige +2°C a +8°C para asegurar la potencia inmunológica."
+            },
+            {
+                category: "Rescate",
+                question: "Niño de 18 meses sano que nunca recibió Neumococo. ¿Qué indicas?",
+                options: ["No vacunar", "1 dosis única", "2 dosis (intervalo 1 mes)", "Reiniciar esquema 2,4,12"],
+                correct: 2,
+                explanation: "Para niños no vacunados entre 12 y 23 meses corresponden 2 dosis con intervalo de al menos 1 mes."
+            }
+        ];
+
+        const clinicalCases = [
+            {
+                title: "Caso VIH: Esquema Neumococo",
+                scenario: "Llega a su control un lactante de 6 meses diagnosticado con VIH por transmisión vertical. Ha recibido sus dosis de Neumococo a los 2 y 4 meses. ¿Qué corresponde hoy?",
+                question: "¿Cuál es la conducta correcta?",
+                options: [
+                    "Solo Pentavalente y Polio.",
+                    "Aplicar 3ra dosis de Neumococo (esquema VIH).",
+                    "Esperar hasta los 12 meses para Neumococo.",
+                    "No vacunar por inmunosupresión."
+                ],
+                correct: 1,
+                explanation: "Correcto. A diferencia del niño sano (que espera hasta los 12m), el niño con VIH recibe una 3ra dosis a los 6 meses."
+            },
+            {
+                title: "Caso: Dosis Influenza",
+                scenario: "Niño de 2 años con VIH acude para vacuna anual de Influenza. ¿Qué volumen administras?",
+                question: "¿Cuál es la dosis correcta?",
+                options: [
+                    "0.5 ml (Dosis adulto)",
+                    "0.25 ml (Dosis pediátrica)",
+                    "0.1 ml intradérmica",
+                    "No se vacuna"
+                ],
+                correct: 1,
+                explanation: "Bien. Hasta los 3 años (2 años, 11 meses, 29 días), la dosis sigue siendo pediátrica (0.25 ml)."
+            },
+            {
+                title: "Caso: Comorbilidad Adulto",
+                scenario: "Paciente de 45 años con Diabetes Mellitus tipo 2 e Insuficiencia Renal. Nunca se ha vacunado contra Neumococo.",
+                question: "¿Está indicada la vacuna?",
+                options: [
+                    "No, solo es para niños y >60 años.",
+                    "Sí, corresponde 1 dosis de Neumococo por ser grupo de riesgo.",
+                    "Sí, pero debe recibir 3 dosis como los niños.",
+                    "Solo debe recibir Influenza."
+                ],
+                correct: 1,
+                explanation: "Los pacientes con diabetes y enfermedad renal entre 5 y 59 años son grupo de riesgo y deben recibir 1 dosis de Neumococo."
+            }
+        ];
+
+        // --- LÓGICA ---
+        let state = { view: 'influenza', groupIndex: 0, quiz: {current:0, score:0, selected:null, finished:false}, cases: {current:0, selected:null, finished:false} };
+
+        function init() { renderNav(); renderContent(); }
+
+        function renderNav() {
+            const tabs = [
+                { id: 'influenza', label: 'Influenza', icon: 'fa-virus', color: 'text-red-700 border-red-500' },
+                { id: 'neumococo', label: 'Neumococo', icon: 'fa-lungs-virus', color: 'text-blue-700 border-blue-500' },
+                { id: 'quiz', label: 'Evaluación', icon: 'fa-clipboard-list', color: 'bg-indigo-600 text-white border-indigo-800' },
+                { id: 'cases', label: 'Casos Clínicos', icon: 'fa-user-doctor', color: 'bg-emerald-600 text-white border-emerald-800' }
+            ];
+            
+            document.getElementById('main-nav').innerHTML = tabs.map(t => {
+                const active = state.view === t.id;
+                let cls = `p-3 rounded-xl flex items-center justify-center gap-2 border-b-4 transition-all cursor-pointer select-none `;
+                if(t.id === 'quiz' || t.id === 'cases') cls += `${t.color} shadow-md hover:-translate-y-1 hover:opacity-90`;
+                else cls += active ? `bg-white ${t.color} shadow-sm -translate-y-1` : `bg-slate-200 text-slate-500 border-transparent hover:bg-slate-300`;
+                return `<div onclick="setView('${t.id}')" class="${cls}"><i class="fa-solid ${t.icon}"></i><span class="hidden md:inline font-bold text-sm">${t.label}</span></div>`;
+            }).join('');
+        }
+
+        function setView(id) { state.view = id; state.groupIndex = 0; if(id==='quiz') resetQuiz(); if(id==='cases') resetCases(); renderNav(); renderContent(); }
+        
+        function renderContent() {
+            const c = document.getElementById('content-area');
+            if(state.view === 'quiz') renderQuiz(c);
+            else if(state.view === 'cases') renderCases(c);
+            else renderVaccine(c, vaccineData[state.view]);
+        }
+
+        function renderVaccine(c, data) {
+            const grp = data.groups[state.groupIndex];
+            const groupBtns = data.groups.map((g, i) => 
+                `<button onclick="setGroup(${i})" class="flex-1 py-3 px-2 text-sm flex flex-col items-center gap-1 transition-colors ${state.groupIndex===i ? `bg-slate-50 font-bold ${data.textColor} border-b-2 ${data.id==='influenza'?'border-red-500':'border-blue-500'}` : 'text-slate-400 hover:text-slate-600'}"><i class="fa-solid ${g.icon}"></i><span class="text-center">${g.label}</span></button>`
+            ).join('');
+
+            c.innerHTML = `
+                <div class="grid lg:grid-cols-3 gap-6 animate-fade-in">
+                    <div class="lg:col-span-1 space-y-4">
+                        <div class="bg-white p-6 rounded-2xl border ${data.borderColor} shadow-sm">
+                            <span class="text-xs font-bold px-2 py-1 border rounded uppercase ${data.textColor} ${data.borderColor}">${data.type}</span>
+                            <h2 class="text-2xl font-bold mt-3 ${data.textColor}">${data.title}</h2>
+                            <p class="text-sm text-slate-600 mt-2">${data.description}</p>
+                            <div class="mt-4 pt-4 border-t border-dashed space-y-2 text-sm">
+                                <p><strong>Dosis:</strong> ${data.technical.dosage}</p>
+                                <p><strong>Vía:</strong> ${data.technical.route}</p>
+                                <p><strong>Conservación:</strong> ${data.technical.storage}</p>
+                            </div>
+                        </div>
+                        <div class="bg-red-50 p-5 rounded-xl border border-red-100 text-sm text-red-800">
+                            <h3 class="font-bold mb-2 flex gap-2 items-center"><i class="fa-solid fa-ban"></i> Contraindicaciones</h3>
+                            <ul class="list-disc list-inside space-y-1">${data.contraindications.map(x=>`<li>${x}</li>`).join('')}</ul>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-2 space-y-4">
+                        <div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
+                            <div class="flex border-b overflow-x-auto bg-white">${groupBtns}</div>
+                            <div class="p-6 bg-slate-50 min-h-[300px]">
+                                <h3 class="font-bold text-slate-800 mb-4 flex gap-2 items-center"><i class="fa-regular fa-calendar-check"></i> Esquema</h3>
+                                <div class="space-y-3 mb-6">
+                                    ${grp.schedule.map(s => `
+                                        <div class="bg-white p-3 rounded-lg border flex justify-between items-center shadow-sm">
+                                            <div class="flex gap-3 items-center"><div class="w-2 h-8 rounded-full ${data.color}"></div><span class="font-bold text-slate-800">${s.age}</span></div>
+                                            <span class="text-xs bg-slate-100 px-2 py-1 rounded font-medium text-slate-600">${s.dose}</span>
+                                        </div>`).join('')}
+                                </div>
+                                ${grp.details ? `
+                                <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-clipboard-list"></i> Comorbilidades / Detalles:</h4>
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 text-xs">${grp.details.map(d=>`<div class="bg-white px-2 py-2 border rounded shadow-sm flex items-center gap-2"><i class="fa-solid fa-circle-check text-[8px] text-slate-300"></i> ${d}</div>`).join('')}</div>` : ''}
+                                ${grp.notes ? `<div class="bg-yellow-50 text-yellow-800 p-3 rounded border border-yellow-100 text-sm flex gap-2"><i class="fa-solid fa-circle-info mt-1"></i><p>${grp.notes}</p></div>` : ''}
+                            </div>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-orange-100 shadow-sm">
+                            <h3 class="font-bold text-slate-800 mb-2 border-b pb-2 flex gap-2"><i class="fa-solid fa-notes-medical text-orange-500"></i> ESAVI (Reacciones)</h3>
+                            <div class="text-sm space-y-1"><p><strong class="text-orange-700">Local:</strong> ${data.esavi.local}</p><p><strong class="text-orange-700">Sistémico:</strong> ${data.esavi.systemic}</p></div>
+                        </div>
+                    </div>
+                </div>`;
+        }
+        function setGroup(i) { state.groupIndex = i; renderContent(); }
+
+        // --- QUIZ & CASES UTILS ---
+        function resetQuiz() { state.quiz = {current:0, score:0, selected:null, finished:false}; }
+        function quizAnswer(i) { if(state.quiz.selected!==null)return; state.quiz.selected=i; if(i===quizQuestions[state.quiz.current].correct) state.quiz.score++; renderContent(); }
+        function quizNext() { if(state.quiz.current<quizQuestions.length-1){state.quiz.current++;state.quiz.selected=null;}else{state.quiz.finished=true;} renderContent(); }
+        
+        function renderQuiz(c) {
+            const {current, score, selected, finished} = state.quiz;
+            if(finished) {
+                const perf = score === quizQuestions.length;
+                c.innerHTML = `
+                <div class="bg-white rounded-2xl shadow-lg border p-8 text-center max-w-xl mx-auto slide-up">
+                    <div class="w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-6 shadow-inner ${perf ? 'bg-yellow-100 text-yellow-600 ring-4 ring-yellow-50' : 'bg-indigo-100 text-indigo-600'}">
+                        <i class="fa-solid ${perf ? 'fa-trophy bounce' : 'fa-clipboard-check'} text-4xl"></i>
+                    </div>
+                    <h2 class="text-3xl font-bold mb-2">${perf?'¡FELICITACIONES!':'Terminado'}</h2>
+                    <p class="mb-6 text-slate-600">${perf?'¡Dominas el tema VIH y Pediatría!':'Repasa los puntos clave.'}</p>
+                    <div class="text-5xl font-black mb-2 ${perf?'text-yellow-500':'text-indigo-600'}">${score}/${quizQuestions.length}</div>
+                    ${perf ? `<div class="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-200 rounded-2xl p-6 mb-8 shadow-sm"><div class="flex items-center justify-center gap-2 mb-2 text-yellow-700 font-bold text-xl"><i class="fa-solid fa-gift fa-shake"></i> ¡RECLAMA TU PREMIO!</div><p class="text-yellow-800 font-medium">Captura esta pantalla.</p></div>` : ''}
+                    <button onclick="setView('influenza')" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-slate-800 transition">Volver al Inicio</button>
+                </div>`;
+                return;
+            }
+            const q = quizQuestions[current];
+            const opts = q.options.map((o,i) => {
+                let cls = "border-slate-200 hover:bg-slate-50";
+                if(selected!==null) {
+                    if(i===q.correct) cls="bg-emerald-100 border-emerald-500 text-emerald-800 font-bold";
+                    else if(i===selected) cls="bg-red-100 border-red-500 text-red-800";
+                    else cls="opacity-50";
+                }
+                return `<button onclick="quizAnswer(${i})" class="w-full text-left p-4 rounded-xl border-2 mb-2 transition-all ${cls}">${o}</button>`;
+            }).join('');
+            
+            c.innerHTML = `
+            <div class="max-w-2xl mx-auto fade-in">
+                <div class="flex justify-between text-xs font-bold text-slate-400 mb-2"><span>PREGUNTA ${current+1}/${quizQuestions.length}</span><span>${q.category}</span></div>
+                <div class="bg-white p-6 rounded-2xl border shadow-lg">
+                    <h3 class="text-xl font-bold mb-6 text-slate-800">${q.question}</h3>
+                    ${opts}
+                    ${selected!==null ? `<div class="mt-4 p-4 bg-slate-50 rounded-lg text-sm border-t slide-up"><p class="font-bold ${selected===q.correct?'text-emerald-600':'text-red-600'}">${selected===q.correct?'¡Correcto!':'Incorrecto'}</p><p class="mt-1 text-slate-600">${q.explanation}</p><button onclick="quizNext()" class="mt-3 w-full bg-indigo-600 text-white py-2 rounded-lg font-bold hover:bg-indigo-700 transition">Siguiente</button></div>`:''}
+                </div>
+            </div>`;
+        }
+
+        function resetCases() { state.cases = {current:0, selected:null, finished:false}; }
+        function caseAnswer(i) { if(state.cases.selected!==null)return; state.cases.selected=i; renderContent(); }
+        function caseNext() { if(state.cases.current<clinicalCases.length-1){state.cases.current++;state.cases.selected=null;}else{state.cases.finished=true;} renderContent(); }
+
+        function renderCases(c) {
+            const {current, selected, finished} = state.cases;
+            if(finished) {
+                c.innerHTML = `<div class="bg-white rounded-2xl shadow p-8 text-center max-w-xl mx-auto slide-up"><div class="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto mb-6"><i class="fa-solid fa-user-md text-3xl"></i></div><h2 class="text-2xl font-bold mb-4">Ronda Clínica Finalizada</h2><p class="text-slate-600 mb-6">Has practicado la toma de decisiones.</p><button onclick="setView('influenza')" class="bg-slate-900 text-white px-6 py-3 rounded-xl font-bold hover:bg-slate-800 transition">Volver</button></div>`;
+                return;
+            }
+            const ca = clinicalCases[current];
+            const opts = ca.options.map((o,i) => {
+                let cls = "border-slate-200 hover:bg-slate-50";
+                if(selected!==null) {
+                    if(i===ca.correct) cls="bg-emerald-100 border-emerald-500 text-emerald-800 font-bold";
+                    else if(i===selected) cls="bg-red-100 border-red-500 text-red-800";
+                    else cls="opacity-50";
+                }
+                return `<button onclick="caseAnswer(${i})" class="w-full text-left p-4 rounded-xl border-2 mb-2 transition-all ${cls}">${o}</button>`;
+            }).join('');
+
+            c.innerHTML = `
+            <div class="max-w-3xl mx-auto fade-in">
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden border">
+                    <div class="bg-emerald-50 p-6 border-b border-emerald-100">
+                        <span class="text-xs font-bold text-emerald-600 uppercase bg-emerald-100 px-2 py-1 rounded">Caso ${current+1}</span>
+                        <h3 class="text-xl font-bold text-emerald-900 mt-2">${ca.title}</h3>
+                        <p class="text-emerald-800 mt-2 text-lg">${ca.scenario}</p>
+                    </div>
+                    <div class="p-6">
+                        <h4 class="font-bold text-slate-700 mb-4 border-l-4 border-emerald-500 pl-3">${ca.question}</h4>
+                        ${opts}
+                        ${selected!==null ? `<div class="mt-4 p-4 bg-slate-50 rounded-lg border text-sm slide-up"><p class="font-bold ${selected===ca.correct?'text-emerald-700':'text-red-700'}">${selected===ca.correct?'¡Bien diagnosticado!':'Revisa la norma'}</p><p class="mt-1">${ca.explanation}</p><button onclick="caseNext()" class="mt-3 bg-slate-900 text-white px-6 py-2 rounded-lg font-bold hover:bg-slate-800 transition">Continuar <i class="fa-solid fa-arrow-right ml-1"></i></button></div>`:''}
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        init();
+    </script>
+</body>
+</html>
