@@ -35,6 +35,7 @@
     <main class="max-w-5xl mx-auto p-4 space-y-6">
         
         <!-- Navegación Principal -->
+        <!-- Ajustado para que el texto sea siempre visible -->
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4" id="main-nav">
             <!-- Renderizado dinámico -->
         </div>
@@ -315,12 +316,19 @@
                 { id: 'cases', label: 'Casos Clínicos', icon: 'fa-user-doctor', color: 'bg-emerald-600 text-white border-emerald-800' }
             ];
             
+            // Aquí aseguramos que el texto sea visible siempre con `block text-xs sm:text-sm font-bold`
             document.getElementById('main-nav').innerHTML = tabs.map(t => {
                 const active = state.view === t.id;
                 let cls = `p-3 rounded-xl flex items-center justify-center gap-2 border-b-4 transition-all cursor-pointer select-none `;
                 if(t.id === 'quiz' || t.id === 'cases') cls += `${t.color} shadow-md hover:-translate-y-1 hover:opacity-90`;
                 else cls += active ? `bg-white ${t.color} shadow-sm -translate-y-1` : `bg-slate-200 text-slate-500 border-transparent hover:bg-slate-300`;
-                return `<div onclick="setView('${t.id}')" class="${cls}"><i class="fa-solid ${t.icon}"></i><span class="hidden md:inline font-bold text-sm">${t.label}</span></div>`;
+                
+                return `
+                    <div onclick="setView('${t.id}')" class="${cls}">
+                        <i class="fa-solid ${t.icon}"></i>
+                        <span class="block text-xs sm:text-sm font-bold">${t.label}</span>
+                    </div>
+                `;
             }).join('');
         }
 
@@ -335,8 +343,12 @@
 
         function renderVaccine(c, data) {
             const grp = data.groups[state.groupIndex];
+            // Botones de subgrupos también visibles en móvil
             const groupBtns = data.groups.map((g, i) => 
-                `<button onclick="setGroup(${i})" class="flex-1 py-3 px-2 text-sm flex flex-col items-center gap-1 transition-colors ${state.groupIndex===i ? `bg-slate-50 font-bold ${data.textColor} border-b-2 ${data.id==='influenza'?'border-red-500':'border-blue-500'}` : 'text-slate-400 hover:text-slate-600'}"><i class="fa-solid ${g.icon}"></i><span class="text-center">${g.label}</span></button>`
+                `<button onclick="setGroup(${i})" class="flex-1 py-3 px-2 text-xs sm:text-sm flex flex-col items-center gap-1 transition-colors ${state.groupIndex===i ? `bg-slate-50 font-bold ${data.textColor} border-b-2 ${data.id==='influenza'?'border-red-500':'border-blue-500'}` : 'text-slate-400 hover:text-slate-600'}">
+                    <i class="fa-solid ${g.icon} text-base"></i>
+                    <span class="text-center leading-tight">${g.label}</span>
+                </button>`
             ).join('');
 
             c.innerHTML = `
@@ -366,13 +378,13 @@
                                     ${grp.schedule.map(s => `
                                         <div class="bg-white p-3 rounded-lg border flex justify-between items-center shadow-sm">
                                             <div class="flex gap-3 items-center"><div class="w-2 h-8 rounded-full ${data.color}"></div><span class="font-bold text-slate-800">${s.age}</span></div>
-                                            <span class="text-xs bg-slate-100 px-2 py-1 rounded font-medium text-slate-600">${s.dose}</span>
+                                            <span class="text-xs bg-slate-100 px-2 py-1 rounded font-medium text-slate-600 text-right max-w-[50%]">${s.dose}</span>
                                         </div>`).join('')}
                                 </div>
                                 ${grp.details ? `
                                 <h4 class="font-bold text-slate-700 text-sm mb-2"><i class="fa-solid fa-clipboard-list"></i> Comorbilidades / Detalles:</h4>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4 text-xs">${grp.details.map(d=>`<div class="bg-white px-2 py-2 border rounded shadow-sm flex items-center gap-2"><i class="fa-solid fa-circle-check text-[8px] text-slate-300"></i> ${d}</div>`).join('')}</div>` : ''}
-                                ${grp.notes ? `<div class="bg-yellow-50 text-yellow-800 p-3 rounded border border-yellow-100 text-sm flex gap-2"><i class="fa-solid fa-circle-info mt-1"></i><p>${grp.notes}</p></div>` : ''}
+                                ${grp.notes ? `<div class="bg-yellow-50 text-yellow-800 p-3 rounded border border-yellow-100 text-sm flex gap-2"><i class="fa-solid fa-circle-info mt-1 flex-shrink-0"></i><p>${grp.notes}</p></div>` : ''}
                             </div>
                         </div>
                         <div class="bg-white p-4 rounded-xl border border-orange-100 shadow-sm">
